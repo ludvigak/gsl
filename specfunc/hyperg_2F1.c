@@ -648,10 +648,12 @@ gsl_sf_hyperg_2F1_e(double a, double b, const double c,
   const double rinta = floor(a + 0.5);
   const double rintb = floor(b + 0.5);
   const double rintc = floor(c + 0.5);
+  const double rintd = floor(d + 0.5);
   const int a_neg_integer = ( a < 0.0  &&  fabs(a - rinta) < locEPS );
   const int b_neg_integer = ( b < 0.0  &&  fabs(b - rintb) < locEPS );
   const int c_neg_integer = ( c < 0.0  &&  fabs(c - rintc) < locEPS );
-
+  const int d_integer = ( fabs(d - rintd) < locEPS );
+  
   result->val = 0.0;
   result->err = 0.0;
 
@@ -723,7 +725,8 @@ gsl_sf_hyperg_2F1_e(double a, double b, const double c,
       return hyperg_2F1_series(a, b, c, x, result);
     }
     else {
-      if(fabs(c) > 10.0) {
+      /* Heuristic: avoid refleciton is d integer and (a,b) of opposite signs. */
+      if(fabs(c) > 10.0 || (d_integer && a*b < 0)) {
         return hyperg_2F1_series(a, b, c, x, result);
       }
       else {

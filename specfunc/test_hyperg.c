@@ -636,11 +636,16 @@ TEST_SF(s, gsl_sf_hyperg_U_e, (2, -6.4, 1, &r),1.2141502795806162484648638e-02
   TEST_SF(s, gsl_sf_hyperg_2F1_e, (-0.2, 8.8, 10.0, 0.8, &r), 0.77998971427681563, TEST_TOL1, GSL_SUCCESS);
   TEST_SF(s, gsl_sf_hyperg_2F1_e, (-0.2, 9.8, 11.0, 0.8, &r), 0.77574573497387267, TEST_TOL0, GSL_SUCCESS);
 
-#if 0 /* XXX - bug #39056 */
   /* Test case from Hatef Monajemi <monajemi@stanford.edu> */
+  TEST_SF(s, gsl_sf_hyperg_2F1_e, (3.5, -0.5, 5.0, 0.9, &r), 0.5923981284370653465208973272, TEST_TOL1, GSL_SUCCESS);
 
-  TEST_SF(s, gsl_sf_hyperg_2F1_e, (3.5, -0.5, 5.0, 0.9, &r), 0.5923981284370653465208973272, TEST_TOL2, GSL_SUCCESS);
+  /* Test c-a-b integer, a and b of opposite sign */
+  TEST_SF(s, gsl_sf_hyperg_2F1_e, (-0.25, 0.25, 1.0, 0.25, &r), 0.983342650775165, TEST_TOL0, GSL_SUCCESS);
+  TEST_SF(s, gsl_sf_hyperg_2F1_e, (-0.25, 0.25, 1.0, 0.9, &r), 0.92058925138209276, TEST_TOL1, GSL_SUCCESS);
+  TEST_SF(s, gsl_sf_hyperg_2F1_e, (-0.5+1e-13, 1.5, 1.0, 0.9, &r), -0.23462153663924453, TEST_TOL1, GSL_SUCCESS);
 
+  
+#if 0 /* XXX - bug #39056 */
   /* Test case from Robert L Wolpert <Wolpert@stat.duke.edu> */
 
   TEST_SF(s, gsl_sf_hyperg_2F1_e, (-1.0, -10.0, 1.0, 0.5, &r), 6.0, TEST_TOL0, GSL_SUCCESS);
